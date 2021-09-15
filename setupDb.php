@@ -104,8 +104,6 @@ $sql .= "INSERT INTO Students (student_name, class_id, class_name,school_id,scho
                 VALUES ('Ana', 333,'2B',555 ,'Escola caic', 2 ,4, 'Baiha' );";
 
 
-echo $sql;
-
 if ($conn->multi_query($sql) === TRUE) {
   echo "New records created successfully";
 } else {
@@ -114,9 +112,6 @@ if ($conn->multi_query($sql) === TRUE) {
 $conn->close();
 
 echo "<br>";
-
-
-
 
 
 
@@ -134,13 +129,25 @@ if ($conn->connect_error) {
   die("Message: " . $conn->connect_error);
 }
 
+
+
+$sql = "DROP TABLE  IF EXISTS Results";
+if ($conn->query($sql) === TRUE) {
+  echo "Droped Table";
+} else {
+  echo "Message: " . $conn->error;
+}
+echo "<br>";
+
+
 // school_id,school_name,class_id,class_name,year,student_id,student_name,birth_date,gender
 // sql to create table
 $sql = "CREATE TABLE Results (
-    student_id INT(6) PRIMARY KEY,
-    test_name VARCHAR(30) NOT NULL,
-    first_field  INT(6),
-    second_field VARCHAR(30) NOT NULL
+    student_id INT(6),
+    test_id VARCHAR(30) NOT NULL,
+    id_423  INT(6),
+    id_424  INT(6),
+    id_425  INT(6)
 )";
 
 

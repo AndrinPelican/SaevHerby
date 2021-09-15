@@ -39,53 +39,43 @@ application/json
 
 
 <?php
-
   $insertResultRequest = json_decode(file_get_contents('php://input'), true);
   // print_r helps to see how jsons is parsed into php objects
   // print_r($data);
 
-  echo $insertResultRequest["studentId"];
+  if ($insertResultRequest["token"]!="secret"){
+    echo "not authenticated";
+  }else {
+    echo $insertResultRequest["student_id"];
+    // the DB connection
+    $servername = "localhost:3306";
+    $username = "root";
+    $password = "luzhsdiu9q'w hlkasdjfpo";
+    $dbname = "myDB";
 
+    // Create connection
+    $conn = new mysqli($servername, $username, $password, $dbname);
+    // Check connection
+    if ($conn->connect_error) {
+      die("Connection failed: " . $conn->connect_error);
+    }
 
-  // the DB connection
-  $servername = "localhost:3306";
-  $username = "root";
-  $password = "luzhsdiu9q'w hlkasdjfpo";
-  $dbname = "myDB";
+    // echo $insertResultRequest
 
-  // Create connection
-  $conn = new mysqli($servername, $username, $password, $dbname);
-  // Check connection
-  if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+    // // prepareing the DB query
+    // $sql = "INSERT INTO Results (student_id, test_id, id_423, id_424, id_425)
+    //          VALUES ($insertResultRequest['student_id'],$insertResultRequest['testId'], $insertResultRequest['student_id'],$insertResultRequest['student_id'],$insertResultRequest['student_id']);";
+
+    $sql = "INSERT INTO Results (student_id, test_id, id_423, id_424,id_425)
+            VALUES (". $insertResultRequest['student_id'].",".$insertResultRequest['testId'].",".$insertResultRequest['results']['423'].",".$insertResultRequest['results']['424'].",".$insertResultRequest['results']['425'].");";
+            echo $sql;
+
+    if ($conn->multi_query($sql) === TRUE) {
+      echo "New records created successfully";
+    } else {
+      echo "Error: " . $sql . "<br>" . $conn->error;
+    }
+    //
+    $conn->close();
   }
-
-  // student_id INT(6) PRIMARY KEY,
-  // test_name VARCHAR(30) NOT NULL,
-  // first_field  INT(6),
-  // second_fiel
-
-
-  // prepareing the DB query
-  $sql = "INSERT INTO Results (firstname, lastname, email)
-           VALUES ('John', 'Doe', 'john@example.com');";
-
-  foreach ($insertGuestsRequest["guests"] as $guest) {
-    $sql .=  "INSERT INTO MyGuests (firstname, lastname, email)
-             VALUES ( '{$guest["firstname"]}','{$guest["lastname"]}','{$guest["email"]}');";
-  }
-
-
-
-
-
-  if ($conn->multi_query($sql) === TRUE) {
-    echo "New records created successfully";
-  } else {
-    echo "Error: " . $sql . "<br>" . $conn->error;
-  }
-
-  $conn->close();
-
-
 ?>
