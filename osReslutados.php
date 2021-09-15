@@ -28,6 +28,8 @@ if ($conn->connect_error) {
 }
 
 echo "<br><br>";
+// The table and data stucture will be different
+// We selected the question with question id 423, 424, 425 as an example
 $sql = "SELECT student_id, id_423, id_424,id_425 FROM Results";
 $result = $conn->query($sql);
 if ($result->num_rows > 0) {

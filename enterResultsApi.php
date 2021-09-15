@@ -29,7 +29,7 @@ Write the names into the db
 Returns "Successfull"
 
 
-use postman postman.com to sent a
+use postman postman.com to send a
 post request
 application/json
 
@@ -45,6 +45,7 @@ application/json
 
   if ($insertResultRequest["token"]!="secret"){
     echo "not authenticated";
+    var_dump(http_response_code(401));
   }else {
     echo $insertResultRequest["student_id"];
     // the DB connection
@@ -72,10 +73,15 @@ application/json
 
     if ($conn->multi_query($sql) === TRUE) {
       echo "New records created successfully";
+      // The information was entered, therefore we return a 200 ok
+      var_dump(http_response_code(200));
     } else {
       echo "Error: " . $sql . "<br>" . $conn->error;
+      // there was an error
+      var_dump(http_response_code(400));
     }
     //
     $conn->close();
   }
+
 ?>

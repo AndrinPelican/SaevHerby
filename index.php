@@ -3,11 +3,20 @@
 You can acess this page in http://localhost/SaevHerby/
 
 
-This as an example on how you can maka a php interface to Herby. Two tasks:
+This is an example on how you can maka a php interface to Herby. Two tasks:
 
   - imprimir o cartao de resposta
   - reveber os resultados.
 
+
+Note to get it running you need to connect to your database, we used
+MariaDb as example. And use the corresponding commands.
+
+
+The url
+"http://localhost:8082/cartaoDeResposta"
+has to be replaced with
+"https://herby-app.ch/cartaoDeResposta"
 
  -->
 
@@ -93,7 +102,7 @@ foreach($age as $x => $x_value) {
           window.open(fileURL);
           }
           };
-          xhttp.open("POST", "http://localhost:8082/getCartaoDeResposta", true);
+          xhttp.open("POST", "http://localhost:8082/cartaoDeResposta", true);
           xhttp.setRequestHeader("Content-type", "application/json");
           xhttp.responseType = "arraybuffer";
           console.log("http.responseType");

@@ -4,7 +4,7 @@ This file is here to setup the Database
 
 creates table
 
-enters studenst
+enters mock students  
 
  -->
 
